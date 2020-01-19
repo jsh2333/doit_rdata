@@ -1,0 +1,115 @@
+# 내장 함수
+setwd("c:/ace_R/easy_r")
+exam <- read.csv("csv/csv_exam.csv")
+class(exam)
+exam
+exam[] 
+exam[1,]
+exam[2,]
+exam[1, 1]
+exam[1, "id"]
+
+exam[exam$class ==1,]
+
+exam[exam$math >= 70,]
+
+library(dplyr)
+exam %>% filter(exam$math >= 70)
+
+exam[exam$class==1 & exam$math >= 60,]
+exam[exam$class==1 | exam$math >= 60,]
+
+exam[,1]
+exam[,2]
+exam[,"class"]
+exam[,c("id", "class", "math")]
+
+exam[exam$math > 50, "english"]
+
+exam %>% filter(math >50) %>% select("english")  
+
+exam$tot <- (exam$math + exam$english + exam$science) / 3
+aggregate(data=exam[exam$math >=50 & exam$english >=80,], tot ~ class, mean)
+
+exam %>% 
+  filter(math >= 50 & english >=80) %>% 
+  mutate(tot = (math + english + science) / 3) %>% 
+  group_by(class) %>% 
+  summarise(mean(tot))
+
+
+
+########### 변수 타입
+
+var1 <- c(1,2,3,2,1)
+var2 <- factor(c(1,2,3,2,1))
+var1
+var2
+
+var1 + 3
+var2 + 3
+
+class(var1)
+class(var2)
+
+levels(var2)
+levels(var1)
+
+table(var1)
+table(var2)
+
+mean(var1)
+mean(var2)
+
+is.factor(var2)
+var2 <- as.numeric(var2)
+is.numeric(var2)
+levels(var2)
+
+
+class(mpg$drv)
+
+########### 데이터 구조
+
+# vector: 한 가지 타입으로 구성
+a <- 1
+a
+a[1]
+b <- "hello"
+b
+class(a)
+class(b)
+
+# data frame: 행과 열 - 다양한 타입으로 구성
+
+
+
+# matrix: 행렬 - 한 가지 타입으로 구성
+
+x2 <- matrix(c(1:12), ncol = 2)
+class(x2)
+x2
+
+# array : 2차원 이상의 matrix - 한 가지 타입
+
+x3 <- array(1:20, dim = c(2, 5, 2))
+x3
+class(x3)
+
+
+# list :  모드 데이터 구조 포함
+
+x4 <- list(f1 = a,
+           f2 = head(mpg),
+           f3 = x2,
+           f4 = x3)
+x4
+
+mpg
+boxplot(mpg$cty)$stats
+x <- boxplot(mpg$cty)
+x
+
+x$names
+
+x$stats[,1][3]

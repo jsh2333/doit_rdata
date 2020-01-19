@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579317340616.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "524837769",
+    "id" : "460C8D7E",
+    "lastKnownWriteTime" : 1579326999,
+    "last_content_update" : 1579326999283,
+    "path" : "C:/ace_R/easy_r/scr12_interactive.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "34,7",
+        "scrollLine" : "29",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

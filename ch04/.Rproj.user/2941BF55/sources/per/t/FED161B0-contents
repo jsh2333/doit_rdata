@@ -1,0 +1,53 @@
+
+### t test를 위한 f test:  분산률 검정
+a = c(175, 168, 168, 190, 156, 181, 182, 175, 174, 179)
+b = c(185, 169, 173, 173, 188, 186, 175, 174, 179, 180)
+
+var.test(a, b)
+
+
+mpg <- as.data.frame(ggplot2::mpg)
+
+library(dplyr)
+mpg_diff <- mpg %>% 
+  select(class, cty) %>% 
+  filter(class %in% c("compact", "suv"))
+head(mpg_diff)
+table(mpg_diff$class)
+
+
+t.test(data = mpg_diff, cty ~ class, var.equal = T)
+
+
+###########상관계수
+
+economics <-  as.data.frame(ggplot2::economics)
+cor.test(economics$unemploy, economics$pce)
+
+
+head(mtcars)
+
+car_cor <- cor(mtcars)
+class(car_cor)
+car_cor <- round(car_cor, 2)
+head(car_cor)
+
+install.packages("corrplot")
+library(corrplot)
+corrplot(car_cor)
+corrplot(car_cor, method = "number")
+
+?colorRampPalette
+col <- colorRampPalette(c("blue", "red", "white", "yellow"))
+
+corrplot(car_cor,
+         method = "color",
+         col = col(200),
+         type = "lower",
+         order = "hclust",
+         addCoef.col = "black",
+         tl.col = "skyblue",
+         tl.srt = 45,
+         diag= F
+         )
+

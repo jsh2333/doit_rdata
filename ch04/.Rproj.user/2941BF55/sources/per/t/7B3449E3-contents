@@ -1,0 +1,72 @@
+install.packages("ggiraphExtra")
+library(ggiraphExtra)
+
+data()
+
+str(USArrests)
+head(USArrests)
+
+library(tibble)
+# rownames_to_column: 행제목을 컬럼으로 변환
+crime <- rownames_to_column(USArrests, "state")
+class(crime)
+crime$state <- tolower(crime$state)
+str(crime)
+
+?maps
+install.packages("maps")
+library(maps)
+map()
+map('usa')
+
+library(ggplot2)
+
+states_map <- map_data("state")
+str(states_map)
+
+install.packages("mapproj")
+# 범죄율 data와 지도 data를 mapping하여  표시 
+ggChoropleth(crime, aes(fill=Murder, map_id=state), map = states_map )
+
+# interactive map
+ggChoropleth(crime, aes(fill=Murder, map_id=state), map = states_map, interactive = T )
+
+
+####### googleVis
+install.packages("googleVis")
+library(googleVis)
+demo(googleVis)
+
+Fruits
+
+Bubble <- gvisBubbleChart(Fruits, idvar="Fruit",xvar = "Sales", yvar = "Profit", options = list(hAxis= '{minValue:75, maxValue:125}'))
+
+plot(Bubble)
+
+########
+str(kormap1)
+rm(kormap1)
+install.packages("stringi")
+install.packages("devtools")
+devtools::install_github("cardiomoon/kormaps2014", force = TRUE)
+
+library(kormaps2014)
+str(korpop1)
+str(changeCode(korpop1))
+class(korpop1)
+korpop1
+library(dplyr)
+korpop1 <- rename(korpop1,
+                  pop = 총인구_명,
+                  name = 행정구역별_읍면동
+                  )
+
+str(changeCode(kormap1))
+library(ggplot2)
+
+ggChoropleth(data = korpop1,
+             aes(fill= pop,
+                 map_id = code,
+                 tooltip=name),
+             map = kormap1,
+             interactive = T, options(encoding = "cp949"))

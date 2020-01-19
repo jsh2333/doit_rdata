@@ -1,0 +1,41 @@
+basic_url <- "https://www.seoul.go.kr/freeboard/praiseboard.do#list/"
+basic_url
+
+urls <- NULL
+
+for(x in 0:5){
+  urls[x+1] <- paste0(basic_url, x*10+1)
+}
+
+urls
+
+install.packages("rvest")
+library(rvest)
+
+html <- read_html(urls[1])
+html
+
+html2 <- html_nodes(html, '.searchList')
+html2
+
+html3 <- html_nodes(html2, 'a')
+html3
+
+links <- html_attr(html3, "href")
+links
+
+links <- unique(links)
+links
+
+
+length(links)
+
+txts <- NULL
+
+for(link in links){
+  html <- read_html(link)
+  txts <- c(txts, html %>% html_nodes('.article_txt') %>% html_text())
+  
+}
+
+txts

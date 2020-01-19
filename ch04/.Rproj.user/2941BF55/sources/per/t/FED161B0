@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579322647711.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "639884259",
+    "id" : "FED161B0",
+    "lastKnownWriteTime" : 1579330221,
+    "last_content_update" : 1579330221784,
+    "path" : "C:/ace_R/easy_r/scr13_stat.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "4,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579309882911.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1704355190",
+    "id" : "7B3449E3",
+    "lastKnownWriteTime" : 1579326997,
+    "last_content_update" : 1579326997956,
+    "path" : "C:/ace_R/scr11_map.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "54,14",
+        "scrollLine" : "51",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

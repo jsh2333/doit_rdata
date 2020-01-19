@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579336641801.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3381798620",
+    "id" : "BDA503B0",
+    "lastKnownWriteTime" : 1579339152,
+    "last_content_update" : 1579339152074,
+    "path" : "C:/ace_R/easy_r/webcrawl.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "30,13",
+        "scrollLine" : "28",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,7 @@
+"0","mpg <- as.data.frame(ggplot2::mpg)"
+"0",""
+"0","library(dplyr)"
+"0","mpg_diff <- mpg %>% "
+"0","  select(class, cty) %>% "
+"0","  filter(class %in% c(""compact"", ""suv""))"
+"0","head(mpg_diff)"
