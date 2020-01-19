@@ -99,4 +99,87 @@ head(exam)
 exam %>% 
   arrange(desc(math), desc(english), class)
 
+#-----------------------------------------
+# 06-5 파생변수 추가하기 :  mutate()
+exam %>% 
+  mutate(total = math + english + science) %>% 
+  head()
+
+exam %>% 
+  mutate(total = math + english + science,
+         mean = (math + english + science)/3) %>% 
+  head()
+
+exam %>% 
+  mutate(test = ifelse(science >=60, "pass", "fail")) %>% 
+  head()
+
+exam %>% 
+  mutate(total = math + english + science,
+         mean = (math + english + science)/3,
+         test = ifelse(mean >=60, "pass", "fail")) %>% 
+  head()
+
+exam %>% 
+  mutate(total = math + english + science,
+         mean = (math + english + science)/3,
+         test = ifelse(mean >=60, "pass", "fail")) %>% 
+  arrange(desc(total)) %>% 
+  head()
+
+#-----------------------------------------
+# 06-6 집단별로 요약하기 : group_by(), summarise()
+
+exam %>% summarise(mean_math = mean(math))
+
+exam %>% 
+  group_by(class) %>% 
+  summarise(mean_math = mean(math))
+
+exam %>% 
+  group_by(class) %>% 
+  summarise(mean_math = mean(math),
+            sum_math = sum(math),
+            median_math = median(math),
+            sd_math = sd(math),
+            n = n()
+            )
+mpg %>% 
+  group_by(manufacturer, drv) %>% 
+  summarise(mean_cty = mean(cty)) %>% 
+  head()
+
+mpg %>% 
+  group_by(manufacturer) %>% 
+  filter(class=="suv") %>% 
+  mutate(tot=(cty+hwy)/2) %>% 
+  summarise(mean_tot = mean(tot)) %>% 
+  arrange(desc(mean_tot)) %>% 
+  head(5)
+  
+
+#-----------------------------------------
+# quiz 06-7
+mpg<-as.data.frame(ggplot2::mpg)
+mpg %>% 
+  group_by(class) %>% 
+  summarise(mean_cty = mean(cty)) 
+
+mpg %>% 
+  group_by(class) %>% 
+  summarise(mean_cty = mean(cty)) %>% 
+  arrange(desc(mean_cty))
+
+mpg %>% 
+  group_by(manufacturer) %>% 
+  summarise(mean_hwy=mean(hwy)) %>% 
+  arrange(desc(mean_hwy)) %>% 
+  head(3)
+  
+mpg %>% 
+  filter(class=="compact") %>% 
+  group_by(manufacturer) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
   
