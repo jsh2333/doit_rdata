@@ -182,4 +182,50 @@ mpg %>%
   summarise(count = n()) %>% 
   arrange(desc(count))
 
-  
+#-----------------------------------------
+# 06-7 데이터합치기: left_join(), bind_rows()
+test1<-data.frame(id=c(1,2,3,4,5), 
+                  midterm=c(60, 80, 70, 90, 85))
+
+test2<-data.frame(id=c(1,2,3,4,5), 
+                  final=c(70, 83, 65, 95, 80))
+
+test1
+test2
+
+# dplyr 패키지의 left_join()을 사용해서 데이터 합치기
+total <- left_join(test1, test2, by="id")
+total
+
+name <- data.frame(class=c(1, 2, 3, 4, 5),
+                   teacher=c("kim", "lee", "park", "choi", "jung"))
+name
+exam
+exam_teacher<-left_join(exam, name, by="class")
+exam_teacher
+
+#세로 합치기
+group_a <-data.frame(id=c(1,2,3,4,5),
+                     test=c(60, 80, 70, 90, 85))
+
+group_b <-data.frame(id=c(6,7,8,9,10),
+                     test=c(70, 83, 65, 95, 80))
+
+group_ab <- bind_rows(group_a, group_b)
+group_ab
+
+#-----------------------------------------
+# quiz, p157
+fuel <- data.frame(fl=c("c", "d", "e", "p", "r"),
+                      price_fl = c(2.35, 2.38, 2.11, 2.76, 2.22), 
+                      stringsAsFactors = F)
+mpg<-as.data.frame(ggplot2::mpg)
+head(mpg)
+mpg<-left_join(mpg, fuel, by="fl")
+head(mpg)
+
+mpg %>% 
+  select(model, fl, price_fl) %>% 
+  head(5)
+
+
