@@ -43,11 +43,24 @@ exam %>% summarise(mean_math=mean(math, na.rm=T),
                    sum_math=sum(math, na.rm=T), 
                    median_math=median(math, na.rm = T))
 
+## 평균값으로 결측치를 대체하기
+
+mean_math<-mean(exam$math, na.rm = T)
+
+exam$math<-ifelse(is.na(exam$math), 55, exam$math )
+table(is.na(exam))
+mean(exam$math)
 
 
+fuel <- data.frame(fl = c("c", "d", "e", "p", "r"),
+                  price_fl = c(2.35, 2.38, 2.11, 2.76, 2.22),
+                    stringsAsFactors = F)
+class(fuel$fl)
 
-
-
+fuel <- data.frame(fl = c("c", "d", "e", "p", "r"),
+                   price_fl = c(2.35, 2.38, 2.11, 2.76, 2.22),
+                   stringsAsFactors = T)
+class(fuel$fl)
 
 
 
