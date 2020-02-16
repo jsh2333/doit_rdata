@@ -16,7 +16,7 @@
 ##
 # 11-1 미국 주별 강력 범죄율 단계 구분도 만들기
 ##
-# 미국의 주(State)별 강력 죄율 데이터로부터 단계 구분도를 만들어봅니다.
+# 미국의 주(State)별 강력범죄율 데이터로부터 단계 구분도를 만들어봅니다.
 
 #------------------------------------
 # 1. 패키지 준비하기 
@@ -32,6 +32,11 @@ library(ggiraphExtra)
 # 1973년 미국 주(State)별 강력 범죄율 정보
 
 str(USArrests)
+View(USArrests)
+?USArrests
+#-----------------------
+#Examples : USArrests 
+#-----------------------
 # > str(USArrests)
 # 'data.frame':	50 obs. of  4 variables:
 #   $ Murder  : num  13.2 10 8.1 8.8 9 7.9 3.3 5.9 15.4 17.4 ...
@@ -81,17 +86,19 @@ View( USArrests)
 # 각각의 행이름이 지역명(State)으로 되어 있습니다. 
 # 변수명을 state 로 정해 놓겠습니다. 
 # 이 때 tibble 패키지에 있는 rownames_to_column()을 사용합니다. 
-# 뒤에서 지도 데이터 지역명 변수를 소문자로 표시하게 되므로 state의 값을 소문자료 변경합니다.
+# 뒤에서 지도 데이터 지역명 변수를 소문자로 표시하게 되므로 state의 값을 소문자로 변경합니다.
 # tibble 패키지는 dplyr 설치시 함께 설치됩니다. 
 # 
 library(tibble)
 crime<-rownames_to_column(USArrests, var="state")
+
 crime$state<-tolower(crime$state)
 head(crime)
 
 # USArrests 데이터가 생긴 모양이 data frame이므로 
 crime2<-as.data.frame(USArrests)
 head(crime2)
+has_rownames(crime2)
 # "dplyr" 파이프라인을 사용해서 변환해도 되겠습니다. 
 library(dplyr)
 crime2 <- USArrests %>%
@@ -111,7 +118,9 @@ str(crime)
 # 이 때 map_data()는 ggplot2패키지에 들어 있습니다. 
 
 library(ggplot2)
-states_map<-map_data("state")
+states_map <-map_data("state")
+head(states_map)
+? map_data
 # > states_map<-map_data("state")
 # 에러: Package `maps` required for `map_data`.
 # Please install and try again.
@@ -408,3 +417,115 @@ ggChoropleth(data=tbc_en,   # 지도에 표현할 데이터
 #     http://rpubs.com/cardiomoon/231820
 # [2] 한국 행정지도(2014)패키지 kormaps2014 안내
 #     http://rpubs.com/cardiomoon/222145
+
+#----------------------------------------------------
+# R그래픽  - 공간지도분석
+#----------------------------------------------------
+# 1. maps  세계 지도 데이터베이스 
+# 2. mapdata  maps 보다 해상도가 좋은지도 (wroldHires 지도 데이터베이스 포함됨)
+# 3. mapproj 위도, 경도를 표시
+# 4. ggmap  구글지도 
+#----------------------------------------------------
+# ggplot2와 RGoogleMaps 을 연결
+install.packages("ggmap")
+library(ggmap)
+
+# google 개발자 접속, google api key를 발급받아야합니다. 
+geocode("Korea", source="google")
+
+#maps -> world map
+install.packages("maps")
+library(maps)
+
+# mapdata 패키지: maps 데이터보다 더 자세한 데이터셋을 가져요
+install.packages("mapdata")
+library(mapdata)
+
+# mapdata 패키지 -> 위도, 경도 데이터 (latitude, logitude)
+install.packages("mapproj")
+library(mapproj)
+
+map함수들
+map() #  지도를 시각화한다
+map.text()
+map.cities()
+map.axes()
+
+
+# 한국지도 그리기 (map)
+par(mfrow = c(1, 1))
+map(database = 'world', region= c('South Korea'))
+title("South Korea map in maps packages")
+
+par(mfrow = c(1, 2))
+map(database = 'world', region= c('South Korea', 'North Korea'))
+title("Korea map in maps packages")
+
+
+# mapdata 패키지를 사용해서 그리기
+map(database = "worldHires", region=c('Sourth Korea', 'North Korea'))
+title("Korea map in mapdata packages")
+
+# 중국지도 그림
+par(mfrow = c(1, 1))
+map("world", "China")
+map.cities(country="China", capitals = 3, 
+           minpop = 3500000, 
+           maxpop = 5000000)
+title("capitals=3, minpop=3500000, maxpop = 5000000")
+
+# 아시아 국가 지도 - mapdata 패키지사용
+# 한국, 북한, 일본, 중국 중심
+map('worldHires', 
+    region=c('South Korea', 'North Korea', 'Japan', 'China'))
+
+map('worldHires', region=c('South Korea')
+    , col='blue', add=T, fill = T)
+map('worldHires', region=c('North Korea')
+    , col='coral', add=T, fill = T)
+map('worldHires', region=c('Japan')
+    , col='grey', add=T, fill = T)
+map('worldHires', region=c('China')
+    , col='yellow', add=T, fill = T)
+title("East Asia : Korea, Japan, China")
+
+# ggmap으로 서울지도 그리기
+getmap <- get_googlemap("seoul")
+ggmap(getmap)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
