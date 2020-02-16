@@ -33,11 +33,13 @@ library(plotly)
 # x축에 displ(배기량)
 # y축에 hwy(연비) 를 지정해서 산점도를 만들어봅니다. 
 # 산점도의 col =drv 는 drv(구동방식: 전륜, 후륜, 4륜)에 따른 색상구분을 위해 사용
+# static 그래프
 library(ggplot2)
 ggplot(data=mpg,
           aes(x=displ, y=hwy, col=drv)
           ) + geom_point()
-  
+
+#인터랙티브 그래프만들기  
 p<-ggplot(data=mpg,
           aes(x=displ, y=hwy, col=drv)
    ) + geom_point()
