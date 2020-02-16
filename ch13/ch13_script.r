@@ -252,7 +252,8 @@ head(mtcars)
 # 상관분석
 #-------------------------------------
 car_cor <- cor(mtcars)  # 상관행렬 생성
-round(car_cor, 2)       # 소수점 셋째 자리에서 반올림해서 출력
+res<-round(car_cor, 2)       # 소수점 셋째 자리에서 반올림해서 View(res)
+출력
 # 
 # > round(car_cor, 2)       # 소수점 셋째 자리에서 반올림해서 출력
 # mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
@@ -269,7 +270,32 @@ round(car_cor, 2)       # 소수점 셋째 자리에서 반올림해서 출력
 # carb -0.55  0.53  0.39  0.75 -0.09  0.43 -0.66 -0.57  0.06  0.27  1.00
 
 
-# 음의 상관게수? 
+# 음의 상관계수? 
 # disp 와 cyl
 # 양의 상관계수?
 # mpg 와 cyl
+
+
+#----------------------------
+# 히트맵
+install.packages("corrplot")
+library(corrplot)
+
+corrplot(car_cor)
+
+corrplot(car_cor, 
+         method = "number"
+         )
+
+#colorRampPalette()
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(car_cor, 
+         method = "color",
+         col = col(200),# 200개 색상
+         type="lower",#대각선의 하단부분만 표시
+         order = "hclust",# 유사 군집화 적용
+         addCoef.col = "black", # 상관계수의 색상은 어둡게
+         tl.col = "black", # 변수명 색상 어둡게
+         tl.srt = 45, # 변수명 45도 기울여서 표시
+         diag = F # 대각선 성분은 표시하지 않습니다.
+        )
