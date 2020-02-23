@@ -33,6 +33,12 @@ $first_name
 $username
 [1] "hqnews_bot"
 
+updates = bot$getUpdates()
+updates[[1]]$message$chat
+
+chat_id = updates[[1]]$message$chat$id
+text = "hello my chatbot nice to meet you~"
+bot$sendMessage(chat_id=chat_id, text=text)
 #---------------------------------
 
 

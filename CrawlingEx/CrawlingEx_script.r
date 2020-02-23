@@ -97,6 +97,7 @@ remDr$open()
 # # remDr$navigate("url") - 크롤링하고자 하는 사이트 주소를 입력하면 해당 주소로 이동합니다.
 remDr$navigate('https://finance.naver.com/item/coinfo.nhn?code=005930&target=finsum_more')
 #"자동화된 테스트 소프트웨어에 의해 제어되고 있습니다 " 라는 문구가 보입니다.
+remDr$getCurrentUrl()
 
 # 수집할 데이터를 찾습니다.
 #Financial Summary에 해당하는 부분을 찾아나갑니다.
@@ -105,6 +106,7 @@ remDr$navigate('https://finance.naver.com/item/coinfo.nhn?code=005930&target=fin
 # 해당 iframe 내부로 접근해야 합니다.
 # ID 찾아내기
 ?remDr$findElement
+
 frames = remDr$findElements(using = "id",
                             value = 'coinfo_cp')
 
@@ -128,7 +130,11 @@ remDr$switchToFrame(frames[[1]])
 
 # 연간 클릭
 remDr$findElement(using = 'xpath',
+                  value ='//*[@id="cns_Tab20"]')$clickElement()
+remDr$findElement(using = 'xpath',
                   value ='//*[@id="cns_Tab21"]')$clickElement()
+remDr$findElement(using = 'xpath',
+                  value ='//*[@id="cns_Tab22"]')$clickElement()
 
 # # 분기 클릭
 # remDr$findElement(using = 'xpath',
@@ -142,6 +148,7 @@ page_html = page_parse %>% read_html()
 
 # 재무제표 데이터가 들어있는 테이블 추출
 # 로케일 언어를 English로 변경
+Sys.getlocale()
 Sys.setlocale('LC_ALL', 'English')
 # html_table() 함수를 통해 테이블 데이터만 추출
 table = page_html %>% html_table(fill = TRUE)
@@ -157,6 +164,9 @@ head(df)
 # -------------- 찾으려는 데이터 선택이 되고 데이터를 읽어왔나요? ------------------------
 library(stringr)
 library(magrittr)
+
+? stringr
+? magrittr
 
 rownames(df) = df[, 1]
 
@@ -201,13 +211,16 @@ colnames(df_2) = str_sub(colnames(df_2), 1, 7)
 df_3 = sapply(df_2, function(x) {
   str_replace_all(x, ',', '') %>%
     as.numeric()
-}) %>%
+}) 
+View(df_3)
+df_4<-df_3%>%
   data.frame(., row.names = rownames(df_2))
 
-head(df_3)
-View(df_3)
+head(df_4)
+View(df_4)
 
-
+df_5<-t(df_4)
+View(df_5)
 
 # R을 이용한 데이터로 투자하기 - (1) 거래소 데이터 크롤링
 # http://henryquant.blogspot.com/2019/01/r-1.html
@@ -216,7 +229,7 @@ View(df_3)
 
 
 #---------------------------------------------
-
+#EX3
 ##
 # scrapping music information from wikipedia
 # Blog : http://apple-rbox.tistory.com
@@ -237,14 +250,14 @@ sapply(c('dplyr', 'XML', 'rvest'), require, character.only=T)
 
 
 #------------------------------------------------------------------------
-# EX2 scrapping ....네이버뉴스
+# EX4 scrapping ....네이버뉴스
 #------------------------------------------------------------------------
 # 1) 네이버뉴스페이지URL
 # 2) 네이버뉴스페이지에서 기사 링크 URL 수집
 # 3) 기사 페이지별로 기사 내용 크롤링
 
 # 1) 네이버뉴스페이지URL
-https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&sid2=230
+#https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&sid2=230
 
 
 # 2) 네이버뉴스페이지에서 기사 링크 URL 수집
@@ -254,7 +267,7 @@ https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&sid2=230
 
 
 #------------------------------------------------------------------------
-# EX2 scrapping .....
+# EX5 scrapping .....
 #------------------------------------------------------------------------
 install.packages("httr")
 install.packages("stringr")
@@ -325,13 +338,19 @@ url = 'https://movie.naver.com/movie/board/review/list.nhn?&page=1'
 
 a1 = read_html(url) %>% html_nodes(xpath = '//*[@id="old_content"]/table/tbody/tr')
 a1 %>% html_nodes(xpath='//*[@class="movie"]')
+
 html_node("a") %>% html_attr("href")
 ?? html_nodes
-a = read_html(url) %>% html_table(fill = TRUE) %>% .[[1]]
+
+a = read_html(url) %>% 
+  html_table(fill = TRUE) %>% .[[1]]
+
 a[,3] = stringr::str_replace_all(a[,3], "[\n\r\t]", "")
 a
 
-a2 = read_html(url) %>% html_nodes(//*[@id="wrap"]/table/tbody/tr/td[2]) %>% html_nodes("td")
+a2 = read_html(url) %>% 
+  html_nodes('//*[@id="wrap"]'/table/tbody/tr/td[2]) %>%
+  html_nodes("td")
 a2[2] %>% html_nodes("li")
 a2 = read_html(url) %>% html_nodes(xpath='//*[@id="section_body"]') #%>% html_attr("attr1")
 
